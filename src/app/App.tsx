@@ -1,47 +1,31 @@
-import * as React from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { purple } from '@mui/material/colors';
-import { menus } from "../utils/constants/menuRoutes.constants";
-import "./../assets/scss/App.scss";
-import MissingRoute from "./components/MissingRoute";
-import Loader from "./features/Loader/Loader";
+import { createTheme, Paper, ThemeProvider } from "@mui/material";
 import { SnackbarProvider } from "notistack";
+import * as React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./../assets/scss/App.scss";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import MissingRoute from "./components/MissingRoute";
 import SnackbarAction from "./components/SnackBarUtils/SnackBarAction";
 import { SnackbarUtilsConfigurator } from "./components/SnackBarUtils/SnackBarUtils";
+import Loader from "./features/Loader/Loader";
 import HomePage from "./pagaes/home";
-import { createTheme, Paper, ThemeProvider } from "@mui/material";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 const App = () => {
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
+  const [mode, setMode] = React.useState<"light" | "dark">("dark");
 
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "dark"));
       },
     }),
     []
   );
 
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          primary: {
-            main: purple[500],
-          },
-          secondary: {
-            main: '#f44336',
-          },
-          mode
-        },
-      }),
-    [mode]
-  );
+  const theme = React.useMemo(() => createTheme({}), [mode]);
 
   return (
     <SnackbarProvider
@@ -54,16 +38,15 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <Paper>
             <div className="use-bootstrap">
-              <Header theme={theme} colorMode={colorMode} />
               <BrowserRouter basename="/">
-                <div className="container">
-                  <Routes>
-                    {/* map routes from menu constants */}
-                    {/* <Route path="/" element={<Navigate to={menus[0].path} />} /> */}
-                    <Route path="/"  element={<HomePage/>} />
-                    <Route path="*" element={<MissingRoute />} />
-                  </Routes>
-                </div>
+                <Header theme={theme} colorMode={colorMode} />
+
+                <Routes>
+                  {/* map routes from menu constants */}
+                  {/* <Route path="/" element={<Navigate to={menus[0].path} />} /> */}
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="*" element={<MissingRoute />} />
+                </Routes>
                 <Loader />
               </BrowserRouter>
               <Footer />

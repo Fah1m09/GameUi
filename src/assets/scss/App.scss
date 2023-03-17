@@ -1,4 +1,6 @@
-*, *:after, *:before {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
   font: inherit;
   color: inherit;
@@ -22,15 +24,17 @@ html {
   font-family: Segoe UI, SegoeUI !important;
 }
 
-.container{
-  height: 90vh;
+.container {
+  width: 90%;
+  height: 92vh;
+  margin: auto;
 }
 
 .app-root {
   display: flex;
 }
 
-.footerCopyright{
+.footerCopyright {
   text-align: center;
   padding: 0px;
 }
