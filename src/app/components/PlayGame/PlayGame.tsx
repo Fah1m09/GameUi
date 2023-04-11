@@ -1,5 +1,4 @@
 import {
-  Button,
   FormControl,
   Grid,
   InputLabel,
@@ -13,14 +12,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from "@mui/material";
 import { useState } from "react";
-interface iPlayer {
-  id: number;
-  name: string;
-  score: number;
-}
+import { iPlayer } from "../../../types/iPlayer";
+import PlayerScore from "./PlayerScore";
 
 const initialPlayers: iPlayer[] = [
   { id: 1, name: "John", score: 5 },
@@ -36,18 +31,7 @@ export default function PlayGame() {
     const newPlayer: iPlayer = initialPlayers.find(
       (x) => x.id === Number(event.target.value)
     );
-    console.log(newPlayer);
     setPlayers([...players, newPlayer]);
-  };
-  const handleIncrease = (id: number, newScore: number) => {
-    const updatedPlayers = players.map((player) => {
-      if (player.id === id) {
-        return { ...player, score: player.score + newScore };
-      } else {
-        return player;
-      }
-    });
-    setPlayers(updatedPlayers);
   };
 
   return (
@@ -68,25 +52,19 @@ export default function PlayGame() {
             onChange={handleChange}
           >
             {initialPlayers.map((plr) => (
-              <MenuItem value={plr.id}>{plr.name}</MenuItem>
+              <MenuItem key={plr.id} value={plr.id}>
+                {plr.name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
         {players.map((player) => (
-          <Grid item xs={12}>
-            {player.name}
-            <TextField
-              id="outlined-basic"
-              label="Increase"
-              variant="outlined"
-              type="number"
-              onChange={(e) =>
-                handleIncrease(player.id, parseInt(e.target.value))
-              }
-            />
-
-            <Button variant="contained">Update Score</Button>
-          </Grid>
+          <PlayerScore
+            key={player.id}
+            player={player}
+            setPlayers={setPlayers}
+            players={players}
+          />
         ))}
       </Grid>
 
