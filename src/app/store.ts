@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loaderReducer from "./features/Loader/loaderSlice";
 import authReducer from "./features/Auth/authSlice";
+import gameReducer from "./features/Game/gameSlice";
+import loaderReducer from "./features/Loader/loaderSlice";
 
 const store = configureStore({
   reducer: {
     loader: loaderReducer,
     auth: authReducer,
+    game: gameReducer,
   },
 });
 

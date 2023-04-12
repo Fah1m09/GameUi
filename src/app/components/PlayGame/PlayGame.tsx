@@ -12,26 +12,29 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
+import { useAppSelector } from "../../../hooks/useReduxHooks";
 import { iPlayer } from "../../../types/iPlayer";
 import PlayerScore from "./PlayerScore";
 
-const initialPlayers: iPlayer[] = [
-  { id: 1, name: "John", score: 5 },
-  { id: 2, name: "Jane", score: 0 },
-];
-
 export default function PlayGame() {
-  const [players, setPlayers] = useState<iPlayer[]>([]);
+  const [playerData, setPlayerData] = useState<string>("");
   const [selectedPlayer, setSelectedPlayer] = useState("");
+  const playerList = useAppSelector((state) => state.game.players);
+  const gameList = useAppSelector((state) => state.game.games);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedPlayer(event.target.value);
-    const newPlayer: iPlayer = initialPlayers.find(
+    const newPlayer: iPlayer = playerList.find(
       (x) => x.id === Number(event.target.value)
     );
-    setPlayers([...players, newPlayer]);
   };
 
   return (
@@ -39,6 +42,22 @@ export default function PlayGame() {
       <Grid item xs={12}>
         <h3>Create Game Play</h3>
         <h3>Existing Game</h3>
+      </Grid>
+      <Grid item xs={12}>
+        <form action="" onSubmit={(e) => handleSubmit(e)}>
+          <TextField
+            id="outlined-basic"
+            label="Player Name"
+            size="small"
+            variant="outlined"
+            type="text"
+            name="Player Name"
+            fullWidth
+            value={playerData}
+            onChange={(e) => setPlayerData(e.target.value)}
+          />
+          <Button type="submit">Add</Button>
+        </form>
       </Grid>
 
       <Grid item xs={8} className="Update Score">
@@ -51,20 +70,15 @@ export default function PlayGame() {
             label="Select Player"
             onChange={handleChange}
           >
-            {initialPlayers.map((plr) => (
+            {playerList.map((plr) => (
               <MenuItem key={plr.id} value={plr.id}>
                 {plr.name}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
-        {players.map((player) => (
-          <PlayerScore
-            key={player.id}
-            player={player}
-            setPlayers={setPlayers}
-            players={players}
-          />
+        {gameList[0].gameScores?.map((game) => (
+          <PlayerScore key={game.playerId} game={game} />
         ))}
       </Grid>
 
@@ -78,9 +92,9 @@ export default function PlayGame() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {players.map((row) => (
+              {gameList[0].gameScores?.map((row) => (
                 <TableRow
-                  key={row.id}
+                  key={row.playerId}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
