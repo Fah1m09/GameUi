@@ -12,6 +12,7 @@
 
 body {
   margin: 0;
+  height: 100%;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -26,12 +27,16 @@ html {
 
 .container {
   width: 90%;
-  height: 92vh;
+  height: calc(100vh - 7rem);
   margin: auto;
 }
 
-.app-root {
-  display: flex;
+.homeContainer{
+  margin-top: 1rem !important;
+}
+
+.buttonSize{
+  padding: 5rem !important;
 }
 
 .footerCopyright {
@@ -39,78 +44,13 @@ html {
   padding: 0px;
 }
 
-//0.875rem
-//font size start
-.MuiInputBase-root {
-  font-size: 0.875rem !important;
-}
-
-.MuiFormLabel-root {
-  font-size: 0.875rem !important;
-}
-
-.MuiTypography-body1 {
-  font-size: 0.875rem !important;
-}
-
-.MuiFormControlLabel-root {
-  margin-bottom: 0 !important;
-}
-
-.MuiMenuItem-root {
-  font-size: 0.875rem !important;
-}
-
-label + .MuiInput-formControl {
-  margin-top: 13px !important;
-}
-
-//outlined textbox
-.MuiOutlinedInput-notchedOutline {
-  border-color: #dedcdb !important;
-  border-top-color: rgb(222, 220, 219);
-  border-right-color: rgb(222, 220, 219);
-  border-bottom-color: rgb(222, 220, 219);
-  border-left-color: rgb(222, 220, 219);
-}
-
-.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #3f51bf !important;
-  border-top-color: rgb(63, 81, 181);
-  border-right-color: rgb(63, 81, 181);
-  border-bottom-color: rgb(63, 81, 181);
-  border-left-color: rgb(63, 81, 181);
-}
-
 html {
   overflow-y: scroll;
 }
 
-//bootstrap
-.use-bootstrap {
-  @import "bootstrap/scss/functions";
-  @import "bootstrap/scss/variables";
-  @import "bootstrap/scss/mixins";
-  @import "bootstrap/scss/utilities";
-
-  // Helpers
-  @import "bootstrap/scss/helpers";
-
-  // Utilities
-  @import "bootstrap/scss/utilities/api";
-
-  .bg-light {
-    background-color: white !important;
-  }
-}
-
 .footer {
-  position: fixed;
-  left: 0;
+  height: 50px;
+  position: sticky;
   bottom: 0;
-  width: 100%;
-  background-color: rgb(49, 49, 49);
-  padding: 0.5rem;
-  color: white;
-  text-align: center;
+  background-color: #ccc;
 }

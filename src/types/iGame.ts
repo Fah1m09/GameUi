@@ -1,11 +1,7 @@
-type iGameScores = {
-  playerId: number;
-  name: string;
-  score: number;
-};
+import { iPlayer } from "./iPlayer";
 
 export type iGame = {
   id: number;
   gameName: string;
-  gameScores?: iGameScores[];
+  participants?: iPlayer[];
 };

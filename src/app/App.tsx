@@ -6,6 +6,7 @@ import "./../assets/scss/App.scss";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import MissingRoute from "./components/MissingRoute";
+import PlayGame from "./components/PlayGame/PlayGame";
 import SnackbarAction from "./components/SnackBarUtils/SnackBarAction";
 import { SnackbarUtilsConfigurator } from "./components/SnackBarUtils/SnackBarUtils";
 import Loader from "./features/Loader/Loader";
@@ -45,6 +46,7 @@ const App = () => {
                   {/* map routes from menu constants */}
                   {/* <Route path="/" element={<Navigate to={menus[0].path} />} /> */}
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/game/:id" element={<PlayGame />} />
                   <Route path="*" element={<MissingRoute />} />
                 </Routes>
                 <Loader />
